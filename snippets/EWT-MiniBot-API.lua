@@ -201,6 +201,8 @@ GetMousePosition = function()
 	local res_x, res_y = cur_x*(real_x/def_x), real_y-cur_y*(real_y/def_y)
 	return res_x, res_y, res_x, res_y
 end
+GetMissileCount = wmbapi.GetMissileCount
+GetMissileWithIndex = wmbapi.GetMissileWithIndex
 if LibDraw then
 	SetDrawColor = LibDraw.SetColor
 	Draw2DLine = LibDraw.Draw2DLine
