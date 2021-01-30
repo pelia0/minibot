@@ -62,6 +62,10 @@ Gets the total session count of the current launch.
 
 Gets the index of the current launched session, starting from 1.
 
+- `token = GetAppSessionToken()`
+
+Gets the unique token of the current launched session. This is a randomly generated unique string.
+
 - `path = GetWoWDirectory()`
 
 Gets the WoW base directory path.
