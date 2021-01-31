@@ -127,7 +127,7 @@ types = {
 
 - `output = AesEncrypt(input, key, iv[, encoding])`
 
-Encrypts a plain string by AES-256 with PKCS#7 padding.
+Encrypts a plain string by AES-256 CBC with PKCS#7 padding.
 
 ```lua
 -- input (string): The plain string.
@@ -139,7 +139,7 @@ Encrypts a plain string by AES-256 with PKCS#7 padding.
 
 - `output = AesDecrypt(input, key, iv[, encoding])`
 
-Decrypts an encrypted string by AES-256 with PKCS#7 padding.
+Decrypts an encrypted string by AES-256 CBC with PKCS#7 padding.
 
 ```lua
 -- input (string): The encrypted string.
