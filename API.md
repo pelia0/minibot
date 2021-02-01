@@ -499,6 +499,7 @@ Gets the current no-clip mode flags, which is a sum of:
 1: building
 2: static object
 4: dynamic object
+8: terrain (be careful!)
 
 - `SetNoClipModes(modes)`
 
