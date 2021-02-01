@@ -115,9 +115,9 @@ As a normal Bot user, the steps to get onboard are within a couple of minutes.
 
 - Make sure NO protection software is running, including anti-virus such as Windows Defender and other anti-cheat platforms such as FaceIt and Vanguard.
 
-- Download the latest GUI version of **MiniBot** (`MiniBot.WoW.zip`) in [Releases](https://github.com/pierre-picard/minibot-wow/releases/latest).
+- Download the latest GUI version of **MiniBot**.
 
-- Download the latest map pack (`MiniBot.Maps.zip`) in [Releases](https://github.com/pierre-picard/minibot-wow/releases/latest) and extract it into the main folder of **MiniBot** (`/maps` subfolder).
+- Download the latest map pack and extract it into the main folder of **MiniBot** (`/maps` subfolder).
 
 - Start **MiniBot**, register a new user and login. Note that Minibot does not start up, if the game is running.
 
