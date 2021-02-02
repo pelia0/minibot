@@ -207,7 +207,7 @@ Writes certain content to a file. If you specify encoding, binary content is wri
 -- path (string): The file path.
 -- content (string): The file content.
 -- append (boolean): Whether to append the text content or overwrite the file.
--- encoding (number): One of the encodings for the binary write, from GetStringEncodingsTable(). nil for text write.
+-- encoding (number): The encoding of the file binary content, from GetStringEncodingsTable(). nil for text write.
 -- success (boolean): Whether the content is successfully written to the file.
 ```
 
