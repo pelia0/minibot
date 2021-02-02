@@ -189,13 +189,27 @@ print("result:", encrypted_string, decrypted_string, test == decrypted_string);
 
 Checks if a file exists.
 
-- `text = ReadFile(path)`
+- `content = ReadFile(path[, encoding])`
 
-Reads all text from a file.
+Reads all content from a file. If you specify encoding, binary content is read. Otherwise, UTF-8 text is read.
 
-- `success = WriteFile(path, text[, append])`
+```lua
+-- path (string): The file path.
+-- encoding (number): One of the encodings for the binary read result, from GetStringEncodingsTable(). nil for text read.
+-- content (string): The file content.
+```
 
-Writes all text to a file.
+- `success = WriteFile(path, content[, append[, encoding]])`
+
+Writes certain content to a file. If you specify encoding, binary content is written (append is not supported in this case). Otherwise, UTF-8 text is written.
+
+```lua
+-- path (string): The file path.
+-- content (string): The file content.
+-- append (boolean): Whether to append the text content or overwrite the file.
+-- encoding (number): One of the encodings for the binary write, from GetStringEncodingsTable(). nil for text write.
+-- success (boolean): Whether the content is successfully written to the file.
+```
 
 - `isOrNot = DirectoryExists(path)`
 
@@ -627,7 +641,7 @@ Also notice that there are some descriptor names ending with "_union". This indi
 Gets the table that contains all unit movement flags, which looks like:
 
 ```lua
-descriptors = {
+movementFlags = {
   Forward = 1,
   Backward = 2,
   StrafeLeft = 4,
