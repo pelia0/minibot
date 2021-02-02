@@ -92,12 +92,15 @@ The standard Lua environment gets reset after screen switch including **/reload*
 - `encodings = GetStringEncodingsTable()`
 
 Gets the table of supported string encodings.
+
 ```lua
 encodings = {
   Base64 = 1,
   Hex = 2
 }
 ```
+
+Notice that "Hex" encoded strings are always generated in lower case, in order to match the global convention.
 
 - `types = GetValueTypesTable()`
 
@@ -125,9 +128,29 @@ types = {
 
 ## Common (Encryption)
 
+- `output = Sha256(input[, encoding])`
+
+Computes the hash digest of a plain string by SHA-256.
+
+```lua
+-- input (string): The plain string.
+-- encoding (number): One of the encodings to encrypt the result, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- output (string): The encrypted string.
+```
+
+In order to make sure your own SHA256 digest matches the API above, the test vector is given below:
+
+```lua
+local test = "The quick brown fox jumps over the lazy dog";
+local encodings = GetStringEncodingsTable();
+local digest = Sha256(test, encodings.Hex);
+print("result:", digest);
+-- result: d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592
+```
+
 - `output = AesEncrypt(input, key, iv[, encoding])`
 
-Encrypts a plain string by AES-256 CBC with PKCS#7 padding.
+Encrypts a plain string by AES-256 CBC with PKCS#5 padding.
 
 ```lua
 -- input (string): The plain string.
@@ -139,7 +162,7 @@ Encrypts a plain string by AES-256 CBC with PKCS#7 padding.
 
 - `output = AesDecrypt(input, key, iv[, encoding])`
 
-Decrypts an encrypted string by AES-256 CBC with PKCS#7 padding.
+Decrypts an encrypted string by AES-256 CBC with PKCS#5 padding.
 
 ```lua
 -- input (string): The encrypted string.
@@ -157,7 +180,7 @@ local encodings = GetStringEncodingsTable();
 local encrypted_string = AesEncrypt(test, "01234567890123456789012345678901", "0123456789012345", encodings.Hex);
 local decrypted_string = AesDecrypt(encrypted_string, "01234567890123456789012345678901", "0123456789012345", encodings.Hex);
 print("result:", encrypted_string, decrypted_string, test == decrypted_string);
--- result: A68C23C38693A8EBD1D6276FBB90E5E1 test true
+-- result: a68c23c38693a8ebd1d6276fbb90e5e1 test true
 ```
 
 ## Common (File)
