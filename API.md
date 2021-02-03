@@ -952,6 +952,10 @@ Resets the timer for AFK.
 
 Gets the name of the current WoW account. (same as the WTF subfolder)
 
+- `minute, hour, weekday, day, month, year = GetCurrentTime()`
+
+Gets the name of the current game server time.
+
 [Back to Top](#custom-api)
 
 ## In-World (Vision)
