@@ -582,6 +582,18 @@ Checks if a navigation map is loaded.
 
 Calculates a path to navigate from one position to another. Notice that the mapId must be loaded beforehand for the calculation to work properly.
 
+- `resultX, resultY, resultZ, distance = GetClosestPositionOnMesh(mapId, x, y, z[, ignoreWater = true])`
+
+Projects a specific position onto a navigation mesh map. Notice that if the position is too far away from any mesh polygons, the API will return nil.
+
+```lua
+-- mapId (number): The map ID.
+-- x, y, z (number): The position to be projected.
+-- ignoreWater (boolean): Whether water map areas are to be ignored/excluded.
+-- resultX, resultY, resultZ (number): The result position projected on mesh. nil if the position is too far away.
+-- distance (number): The distance between {x, y, z} and {resultX, resultY, resultZ}.
+```
+
 ```lua
 -- mapId (number): The map ID.
 -- x1, y1, z1 (number): The start position.
