@@ -134,8 +134,8 @@ Computes the hash digest of a plain string by SHA-256.
 
 ```lua
 -- input (string): The plain string.
--- encoding (number): One of the encodings to encrypt the result, from GetStringEncodingsTable(). nil for default encodings.Base64.
--- output (string): The encrypted string.
+-- encoding (number): One of the encodings to generate the result, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- output (string): The digest string.
 ```
 
 In order to make sure your own SHA256 digest matches the API above, the test vector is given below:
