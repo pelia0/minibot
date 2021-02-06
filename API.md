@@ -578,7 +578,7 @@ Unloads a navigation map.
 
 Checks if a navigation map is loaded.
 
-- `path = FindPath(mapId, x1, y1, z1, x2, y2, z2[, ignoreWater = true, waypointCountMax = 1024])`
+- `path = FindPath(mapId, x1, y1, z1, x2, y2, z2[, ignoreWater = true, waypointCountMax = 1024, agentRadius = 0])`
 
 Calculates a path to navigate from one position to another. Notice that the mapId must be loaded beforehand for the calculation to work properly.
 
@@ -588,6 +588,7 @@ Calculates a path to navigate from one position to another. Notice that the mapI
 -- x2, y2, z2 (number): The end position.
 -- ignoreWater (boolean): Whether to avoid walking into water terrain.
 -- waypointCountMax (number): The count maximum of the path waypoints. Returns nil even if a path with too many waypoints is found.
+-- agentRadius (number): The radius of the navigation agent (your character), in yards. To avoid wall collision, you should set the value accordingly.
 ```
 
 - `resultX, resultY, resultZ, distance = GetClosestPositionOnMesh(mapId, x, y, z[, ignoreWater = true])`
