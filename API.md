@@ -588,7 +588,7 @@ Calculates a path to navigate from one position to another. Notice that the mapI
 -- x2, y2, z2 (number): The end position.
 -- ignoreWater (boolean): Whether to avoid walking into water terrain.
 -- waypointCountMax (number): The count maximum of the path waypoints. Returns nil even if a path with too many waypoints is found.
--- agentRadius (number): The radius of the navigation agent (your character), in yards. To avoid wall collision, you should set the value accordingly.
+-- agentRadius (number): The radius of the navigation agent (your character), in yards. To avoid wall collision, you should set the value accordingly. This value can only take 5 in maximum, and any number > 5 will lead to ignorance.
 ```
 
 - `resultX, resultY, resultZ, distance = GetClosestPositionOnMesh(mapId, x, y, z[, ignoreWater = true])`
