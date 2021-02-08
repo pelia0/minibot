@@ -168,7 +168,7 @@ Decrypts an encrypted string by AES-256 CBC with PKCS#5 padding.
 -- input (string): The encrypted string.
 -- key (string): The key for encryption (must be 32 letters).
 -- iv (string): The IV for encryption (must be 16 letters).
--- encoding (number): One of the encodings to encrypt the result, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- encoding (number): One of the encodings into which input is encrypted, from GetStringEncodingsTable(). nil for default encodings.Base64.
 -- output (string): The plain string. nil if decryption fails.
 ```
 
@@ -181,6 +181,87 @@ local encrypted_string = AesEncrypt(test, "01234567890123456789012345678901", "0
 local decrypted_string = AesDecrypt(encrypted_string, "01234567890123456789012345678901", "0123456789012345", encodings.Hex);
 print("result:", encrypted_string, decrypted_string, test == decrypted_string);
 -- result: a68c23c38693a8ebd1d6276fbb90e5e1 test true
+```
+
+- `output = RsaEncrypt(input, publicKey[, encoding])`
+
+Encrypts a plain string by RSA OAEP with SHA padding.
+
+```lua
+-- input (string): The plain string.
+-- publicKey (string): The PEM text of the public key.
+-- output (string): The encrypted string. nil if encryption fails.
+```
+
+- `output = RsaDecrypt(input, privateKey[, encoding])`
+
+Decrypts an encrypted string by RSA OAEP with SHA padding.
+
+```lua
+-- input (string): The encrypted string.
+-- privateKey (string): The PEM text of the private key.
+-- encoding (number): One of the encodings into which input is encrypted, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- output (string): The plain string. nil if decryption fails.
+```
+
+In order to make sure your own RSA encryption matches the API above, the test vector is given below:
+
+```lua
+local test = "test";
+local encodings = GetStringEncodingsTable();
+local encrypted_string = RsaEncrypt(test, [[-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA1MSdsaPH2ShtjOo4c02+
+DbYcTdwUBLY+vNSXr2tV8/jGU059Jak9CA7VSlKR/fik18D7Lq1beLjW56kV4Xvm
+3qmpxOc3eNGmj8dqtO0G3Lp1FAZzxlu2SZsHmmVq9isZcN70apkwlDgIZ11NVIq/
+1iXzr0pIRMKkMNHTGBGBkYOrIcgdH2elvIqfiit6Gts/zho4YCjgyn/r3Vgy/jCu
+6VbfwE9xVY/DB4srD5LrZMabRzN2YwSTI+sRqpbt7I7nZ6o8CuyqHDLjbO9VzE0p
+ovBshTfoyog9XGcQHwTmWn4bdnsh2I1x3gQpaqxdRs4vnKmXJ9GvC/sYla0GYXyD
+ecpgjITqx3QA6aKx9+EVh/o6owYTHXaToVkP7U5m8cqaloQFfA8HLsGDg9A0QaMt
+ixnX7KtT/ZvKFMcazRJ1GX42UaeuO1opZKtjBHLtmaPadNeZdD77VytwY2UHeW5Q
+Snfpos7IxUTATpd6KTWUV3snVQnyiltCI1BHJC01sWePAgMBAAE=
+-----END PUBLIC KEY-----]], encodings.Base64);
+-- encrypted_string = e5fVDawpzGV9SrPLmljQBSrk13P2EaH0vReA+pD6I4bMoe9BHBZS92eTSoqNn42QXzWFMwz+xuPKzTs0gcgr8Y3U9Wwsqs+uibFgBFyiCf9HrzqyftViWEUV+jzrFmvr88uOX0kRP+u2jkSWangc5b4S/IcnqrsHmqy8+HYT18Pv6/XZaV0f2u8lmPIzygFrFBGO/TeczW9bgRu7ZGAMpge8iI0pyXh9f41Ax9r3COtXpDSHF06Vno9hvPRIg8zbhWaqwjjH3SZ/vjytZCS3qxeLDzBPL36MURwRHJ7yFqBABZ0M8RecEYbDPp0i3T1xmjc72A5OqgxUCA/x1WU4dftTtSfG9+wQlWiEu7YhkPIntROXdtQ7WQccdV3RsH3XvsmoyWGqh99+IOthMOSLyvOH0YjfYqmmM8tVDcpLH2xyirmJ7aBR83uFmttEumbY/nZoR/9L1KznrgaKqmanza7WhhG7Yk3FvwzwjPfFD/hyviv0E4gJJsiKephZ/ufM
+local decrypted_string = RsaDecrypt(encrypted_string, [[-----BEGIN RSA PRIVATE KEY-----
+MIIG4wIBAAKCAYEA1MSdsaPH2ShtjOo4c02+DbYcTdwUBLY+vNSXr2tV8/jGU059
+Jak9CA7VSlKR/fik18D7Lq1beLjW56kV4Xvm3qmpxOc3eNGmj8dqtO0G3Lp1FAZz
+xlu2SZsHmmVq9isZcN70apkwlDgIZ11NVIq/1iXzr0pIRMKkMNHTGBGBkYOrIcgd
+H2elvIqfiit6Gts/zho4YCjgyn/r3Vgy/jCu6VbfwE9xVY/DB4srD5LrZMabRzN2
+YwSTI+sRqpbt7I7nZ6o8CuyqHDLjbO9VzE0povBshTfoyog9XGcQHwTmWn4bdnsh
+2I1x3gQpaqxdRs4vnKmXJ9GvC/sYla0GYXyDecpgjITqx3QA6aKx9+EVh/o6owYT
+HXaToVkP7U5m8cqaloQFfA8HLsGDg9A0QaMtixnX7KtT/ZvKFMcazRJ1GX42Uaeu
+O1opZKtjBHLtmaPadNeZdD77VytwY2UHeW5QSnfpos7IxUTATpd6KTWUV3snVQny
+iltCI1BHJC01sWePAgMBAAECggGAEG1tz31ZvMaGTs72tNBX0C8zWD+ZvBNmHKY9
+X+nlpQScK2pv9yxt7eVXSnm9k+JSt+XKfvwbh+KdlR1U9yfd12s6FF3VxppJReib
+sIRsdzZeO8GTxsjl9iDmIWGbNI53VGOic2iIe6kn3PMzOUfNL/eWLP6LPePZUXuh
+1MXlPxrvZ5hPx1D1Vu1NDBn3P4OWFY+osqP1Vy0xRNG+fim8F4ABnpODqJuE71wr
+YvRxAELlUkYC6fo8chWAM6+bhxwxVaGiIKluikmVJtt0/aAcKR6fUogGfcumRGPp
+HzFRDZBVdLmVwbpVrfCbULP7wYk2A5QMu2skAlZSYtyWJbBRXvgweEXepJaXC6FW
+atD5ypi1kSX9K71BRM7DKrmY2/RsyR6Y8a2PdiOHB5MNYKoeH5o2k0htsV2zUspo
+4nER4AB5a5fEysGg3yCST+m2q7UOBvcB0LblE/0sNuOGtCNPmtChdZxspsVRm2ID
+XkKrljy+cdOsxZ0iVcvGhyJRhlCBAoHBAOn6KMfbB11uliVyouFfV5ZoiWPeIXbF
+wkAnev+8kF/GmYU7bAFAhRg2qzwqTVlC2eeG+dHKgr9+xHjsTOIoLB/5jPgcIfY9
+l0lZ9LmNwwvI3wg6XWnwQf9X97YZ1E1A3TpBU5XNzTo7hVtZgHDIf4ufB5sDhZ1S
+nXf/+uBe7gJMMnizpq/tqr+0oPJd4uac1rTp2wsFx6MJjOR8kijZOnr3SdKNU3xo
+shZWlRHy9qCjftxTIuOFSxdEZhJUm87w8QKBwQDoy2hYI0hMn3+lwu30lk4+LGSW
+9ij7AzyTVcRR9FbYciTMQ24IrK020A9rDXkVkJ6FeTbCtT3UkFOlz3JZkEpvY/qd
+Mf8hfd5IO68R1Z5lZpLCFAqcIRUE9l7En9nMiuqdDPZJfhUjhlajzhQotYEv1Fqq
+WDmK0IaklSfGJt0LVsZSuINErHaC5HjJocL86Cqao9a1rxgJA7maCfirwABAafHc
+6OhFuW5Pi6IXj9QbM7PgbGjIIXPDFfs7FkqF4H8CgcEAu0MACJSAXIL5oJcTTZVl
+IHgiHc/WsJyuT3JJuwxL8Juem0dntcjRvQNkIQ8qQNqEVA1vPDz8UA9BaBaXohnM
+1vp/nMPHWrEIuChK+YdAJ9poxskPoo4sBBV/qDsb84iKhulp4GeKbaTdorMLXTja
+/AAXsjUrZzKL3VL+kzzm+OfLLVd7fSqWkkAa4F/MDg5QuRLBwRyrHw2xud0Jja/u
+YiQw7Vc3Dkcs4TwCqw7t3Lt9+RCAx+ASrViM6PbWjNXBAoHAa0fiDEwmM3mFn+RX
+ONJTuH9I0/EZLaRuNA/ga0xJAXKI1sF0YfcB1DLKCDGrTW7aPvR/cfeISP9CLTWO
+owvF4dOXWP4Db3HMEEnBAl0Jo/1DQMFvqkfsod7QCZkJDCQwvrOMhI3gPADayJ5d
+1+zdXidkqQADdJ9ojUxXig+66lDREKoLhIheDTAxIeq0K0zq5Vz/w7avQug+jmht
++uh+tTCdz4peEFPGLE5TIrybqPWIvbH4D9KqwIrOvoolSdENAoHAaa+n0ZXGovFy
+Hjk02KSinY80b0VzOKKXCh3vc5+2WAS9Ar4no7Cobt5QhKA0GtYpLSCmUFRvsZ1P
+Gemb/FH+yC5nLvKaDOpHktZONIARP8e9R1ku9o+9lOFAIU0MYHx0Ep0y4XWgMrTp
+UuP3ai7zn++ag7Lu1QEm5pQAd2n+zMuKZbBISVA9fPbC9RkJX66E4zVbsEUnDDBD
+9Rlu+3Dc0LwSjtAxXPDInmEh2mp3O/aZtMPVUPgDA4Ig7GbQC6W/
+-----END RSA PRIVATE KEY-----]], encodings.Base64);
+print(test == decrypted_string);
+-- true
 ```
 
 ## Common (File)
