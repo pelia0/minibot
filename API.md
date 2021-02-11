@@ -659,7 +659,7 @@ Unloads a navigation map.
 
 Checks if a navigation map is loaded.
 
-- `path = FindPath(mapId, x1, y1, z1, x2, y2, z2[, ignoreWater = true, waypointCountMax = 1024, agentRadius = 0])`
+- `path = FindPath(mapId, x1, y1, z1, x2, y2, z2[, ignoreWater = true|ignoreFlags = 8(NAV_WATER), searchCapacity = 1024, agentRadius = 0])`
 
 Calculates a path to navigate from one position to another. Notice that the mapId must be loaded beforehand for the calculation to work properly.
 
@@ -668,7 +668,8 @@ Calculates a path to navigate from one position to another. Notice that the mapI
 -- x1, y1, z1 (number): The start position.
 -- x2, y2, z2 (number): The end position.
 -- ignoreWater (boolean): Whether to avoid walking into water terrain.
--- waypointCountMax (number): The count maximum of the path waypoints. Returns nil even if a path with too many waypoints is found.
+-- ignoreFlags (number): Alternatively, if you pass a number in place of ignoreWater, you can specify navmesh polygon flags to be ignored. ignoreWater = true is equal to ignoreFlags = 8 which is NAV_WATER flags. This is useful if your map pack has different poly flags or if you wish to ignore arbitrary polygons.
+-- searchCapacity (number): This is a combined value to specify the maximum count of waypoints and the size of search node pool. Increase the number if you wish to find longer path, but meanwhile it will also take longer time due to more navmesh polygons to traverse.
 -- agentRadius (number): The radius of the navigation agent (your character), in yards. To avoid wall collision, you should set the value accordingly. This value can only take 5 in maximum, and any number > 5 will lead to ignorance.
 ```
 
