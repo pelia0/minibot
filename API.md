@@ -351,13 +351,53 @@ Gets the pressed state of a specific key.
 
 Plays a specific sound WAV/MP3 file once.
 
-- `function | error = LoadScript(name, script)`
+- `scriptFunction | error = LoadScript(name, script)`
 
-Loads a Lua script with a name by engine into a function.
+Loads a Lua script as a function.
+
+```lua
+-- name (string): The script name, shown in any Lua error message.
+-- script (string): The script text.
+-- scriptFunction (function): The loaded function if load succeeds.
+-- error (string): The Lua syntax error message if load fails.
+```
+
+- `scriptFunction | error = LoadScriptAesEncrypted(name, script, key, iv[, encoding])`
+
+Loads a Lua script encrypted with AES-256 CBC with PKCS#5 padding as a function. Check `AesDecrypt()` for more details.
+
+```lua
+-- name (string): The script name, shown in any Lua error message.
+-- script (string): The encrypted script text.
+-- key (string): The key for encryption (must be 32 letters).
+-- iv (string): The IV for encryption (must be 16 letters).
+-- encoding (number): One of the encodings into which input is encrypted, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- scriptFunction (function): The loaded function if load succeeds.
+-- error (string): The Lua syntax error message if load fails.
+```
 
 - `RunScript(name, script)`
 
-Runs a Lua script with a name by engine.
+Runs a Lua script by engine. Notice that any syntax/runtime error will pop up an error message box.
+
+```lua
+-- name (string): The script name, shown in any Lua error message.
+-- script (string): The script text.
+```
+
+- `RunScriptAesEncrypted(name, script, key, iv[, encoding])`
+
+Runs a Lua script encrypted with AES by engine. Notice that any decryption failures will cause the API to silently return and any syntax/runtime error will pop up an error message box. Check `AesDecrypt()` for more details.
+
+```lua
+-- name (string): The script name, shown in any Lua error message.
+-- script (string): The encrypted script text.
+-- key (string): The key for encryption (must be 32 letters).
+-- iv (string): The IV for encryption (must be 16 letters).
+-- encoding (number): One of the encodings into which input is encrypted, from GetStringEncodingsTable(). nil for default encodings.Base64.
+-- scriptFunction (function): The loaded function if load succeeds.
+-- error (string): The Lua syntax error message if load fails.
+```
 
 - `SetCustomScript(name, script)`
 
